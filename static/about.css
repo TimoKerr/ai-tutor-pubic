@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    padding: 30px;
+    color: #333;
+}
+
+.about-container {
+    max-width: 700px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .account-link-container {
+    text-align: right;
+    margin-bottom: 20px;
+    }
+
+    .account-link-container a {
+    text-decoration: none;
+    color: #333;
+    margin-left: 20px;
+    }
+
+    .account-link-container a:hover {
+    color: #555;
+    }
+
+    h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    }
+
+    h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    }
+
+    p {
+    font-size: 16px;
+    }
+
+    .about-section {
+    margin-bottom: 30px;
+    }

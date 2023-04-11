@@ -1,0 +1,161 @@
+<html>
+<head>
+    <title>Login and Registration</title>
+    <!-- Google login -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <link rel="stylesheet" href="/static/login.css">
+    <!-- <link rel="stylesheet" href="AI-tutor/static/login.css"> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div id="message-popup" class="message-popup hidden"></div>
+    <div class="left">
+        <div class="header">
+            <h1>AI-Tutor</h1>
+            <h2>Your personal, free AI-tutor, 24/7</h2>
+            <a href="/about" class="learn-more-btn">Learn More</a>
+        </div> 
+        <h2>Login / Register</h2>
+        <form id="authForm" action="/" method="POST">
+            Email: <input type="text" name="email"><br>
+            Password: <input type="password" name="password"><br>
+            <div class="button-container">
+            <button class="login-btn" type="submit" name="action" value="login">Log In</button>
+            <button class="register-btn" type="submit" name="action" value="register">Register</button>
+        </div>
+        </form>
+        <p><a href="#" id="resetPassword">Reset Password!</a></p>
+    </div>
+
+    <div class="right">
+        <!-- <img src="static/background.gif" alt="image description" >  -->
+    </div>
+
+    <script>
+        // Replace the following with your own Firebase project configuration
+        var firebaseConfig = {
+                "apiKey": "AIzaSyBWKapRovi0cqIAqtXm3O8qOXgZIgx5TJo",
+                "authDomain": "ai-tutor-chat.firebaseapp.com",
+                "projectId": "ai-tutor-chat",
+                "storageBucket": "ai-tutor-chat.appspot.com",
+                "messagingSenderId": "166030352998",
+                "appId": "1:166030352998:web:de0fa1ee4829c7d49983a7",
+                "measurementId": "G-L872X8M621",
+                "databaseURL": ""
+                };
+      
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        document.getElementById('resetPassword').addEventListener('click', function(event) {
+            event.preventDefault();
+            var email = prompt('Please enter your email address:');
+            
+            if (email) {
+                firebase.auth().sendPasswordResetEmail(email)
+                .then(function() {
+                    alert('Password reset email sent. Please check your inbox.');
+                })
+                .catch(function(error) {
+                    alert('Error: ' + error.message);
+                });
+            }
+        });
+    </script>
+
+    
+    <!-- Catching login and registration errors -->
+<script>
+            async function onSubmit(event) {
+                event.preventDefault();
+                
+                let email = document.querySelector('input[name="email"]').value;
+                let password = document.querySelector('input[name="password"]').value;
+                let action = event.submitter.value;
+
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "/", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest"); // This is the important header for AJAX requests
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200 || xhr.status == 201) {
+                            const data = JSON.parse(xhr.responseText);
+                            if (data.status === "success") {
+                                if (data.redirect) {
+                                    window.location.href = data.redirect;
+                                } else {
+                                    alert(data.message);
+                                    event.target.reset();
+                                }
+                            } else {
+                                alert(data.message);
+                            }
+                        } else {
+                            const data = JSON.parse(xhr.responseText);
+                            alert(data.message);
+                        }
+                    }
+                }
+
+            let params = `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&action=${encodeURIComponent(action)}`;
+    xhr.send(params);
+}
+
+        
+            document.getElementById('authForm').addEventListener('submit', onSubmit);
+        </script> 
+
+    <!-- <script>
+        document.getElementById("authForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+                
+                var email = document.querySelector('input[name="email"]').value;
+                var password = document.querySelector('input[name="password"]').value;
+                // var action = event.submitter.value;
+                // var action = event.target.querySelector('button[type="submit"]:focus').value;
+                var action = document.activeElement.value;
+
+                fetch("/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Requested-With": "XMLHttpRequest"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        action: action
+                    })
+                })
+                // .then(response => response.json())
+                .then(response => {
+                    // console.log("Server response:", response.text());
+                    return response.json();
+                    })
+                .then(data => {
+                    if (data.status === "success") {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        } else {
+                            alert(data.message);
+                        }
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+            });
+
+    </script> -->
+        
+        
+</body>
+</html>

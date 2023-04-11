@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "public": "static",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/**",
+        "run": {
+          "serviceId": "aitutor",
+          "region": "us-central1"
+        }
+      }
+    ],
+    "trailingSlash": false
+  }
+}

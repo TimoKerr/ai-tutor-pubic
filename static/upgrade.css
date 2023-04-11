@@ -1,0 +1,116 @@
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.account-link-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.account-link-container a {
+    text-decoration: none;
+    color: #005fb3;
+    font-size: 16px;
+}
+
+.container {
+    width: 70%;
+    margin: 0 auto;
+    padding-top: 50px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+.benefits {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.benefit {
+    width: 25%;
+    min-height: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.benefit h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.benefit ul {
+    list-style: disc;
+    padding-left: 20px;
+    font-size: 1.1rem;
+}
+
+.benefit li {
+    margin-bottom: 5px;
+  }
+
+.free {
+    background-color: #e6f7ff;
+}
+
+.full-access {
+    background-color: #d9ead3;
+}
+
+.premium {
+    background-color: #fce5cd;
+}
+
+.benefit:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.patreon {
+    margin-bottom: 40px;
+}
+
+.patreon img {
+    width: 150px;
+    height: auto;
+}
+
+.back-to-chat {
+    display: inline-block;
+    background-color: #005fb3;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+.back-to-chat:hover {
+    background-color: #00a2ff;
+}
+
+.account-link-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.account-link-container a {
+    text-decoration: none;
+    color: #005fb3;
+    font-size: 16px;
+}

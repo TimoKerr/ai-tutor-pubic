@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <link rel="stylesheet" href="/static/account.css">
+</head>
+<body>
+    <div class="account-link-container">
+        <a href="/account">My Account</a>
+        <a href="/upgrade" style="margin-left: 20px;">Upgrade</a>
+        <a href="/about" style="margin-left: 20px;">About</a>
+        <a href="/chat" style="margin-left: 20px;">Chat</a>
+    </div>
+
+    <div class="account-container">
+        <h2>Your Account Information</h2>
+        <p>Email: {{ user_info.email }}</p>
+        <p>Subscription Status: {{ user_info.subscription_status }}</p>
+        <p>Number of Chats: {{ user_info.daily_questions }}</p>
+        <a href="/upgrade" class="upgrade-button">Upgrade your account</a>
+    
+        <div class="buttons-container">
+            <a href="/chat" class="back-to-chat">Go back to chat</a>
+            <a href="/logout" class="logout-button">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

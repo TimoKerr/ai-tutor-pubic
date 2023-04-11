@@ -1,0 +1,15 @@
+{
+  "name": "ai-tutor",
+  "version": "1.0.0",
+  "description": "## Docker setup docker build --tag <image name> . docker run -p 8080:8080 <image name> -> Can be found at localhost:8080",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "firebase-tools": "^11.25.3"
+  }
+}

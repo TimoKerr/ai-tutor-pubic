@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
+</head>
+
+<div class="account-link-container">
+    <a href="/account">My Account</a>
+    <a href="/upgrade" style="margin-left: 20px;">Upgrade</a>
+    <a href="/about" style="margin-left: 20px;">About</a>
+    <a href="/chat" style="margin-left: 20px;">Chat</a>
+</div>
+
+<body>
+    <div class="about-container">
+        <h1>About the AI-tutor</h1>
+        <section class="about-section">
+            <h2>Our Mission</h2>
+            <p>
+                The AI-tutor is a helpful tool for anyone learning about mathematics, physics, and science in general. Sometimes you just need that small hint or short explanation about the topic you are studying in order to get you going.
+            </p>
+        </section>
+
+        <section class="about-section">
+            <h2>AI Model and Methodology</h2>
+            <p>
+                The AI-tutor is an AI model that is designed to help you with any question you might have. However, it will never give you the answer straight away; instead, it is primed to ask guiding questions so that you learn to think through exercises.
+            </p>
+            <p>
+                This platform is constantly improving and under further development, as is the underlying AI model. Sometimes it will make mistakes, but they will diminish over time.
+            </p>
+        </section>
+
+        <section class="about-section">
+            <h2>About the Subscription</h2>
+            <p>
+                Every time a question is asked to the AI-tutor, it costs money to run the model. I am very happy to bear this cost personally if that means you can speed up your math and physics education. However, the supply of money on my side is finite, unfortunately. Therefore, the number of questions is (currently) limited to 10 per day.
+            </p>
+            <p>
+                If you wish, you can pay a monthly fee of $10 to get unlimited questions. The highest tier is only for those who really want to support this platform and make it grow. There are a lot of features still under development, such as a product focused on teachers, personalized AI-models for each student, download of AI-output in PDF files, and much more. If you do wish to support me for that amount, you will be given an eternal place on the wall of supporters, which will never be taken down.
+            </p>
+        </section>
+    </div>
+</body>
+</html>

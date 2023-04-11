@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Tutor Chat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+          },
+          TeX: {
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+          }
+        });
+      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+
+  </head>
+<body>
+      <div class="account-link-container">
+        <a href="/account">My Account</a>
+        <a href="/upgrade" style="margin-left: 20px;">Upgrade</a>
+        <a href="/about" style="margin-left: 20px;">About</a>
+    </div>
+
+    <div class="examples-container">
+        <h2>Examples</h2>
+        <h3>Ask for help.</h3>
+        <p>Can you help me with the integral of xsin(x)?</p>
+        <h3>Request extra exercises</h3>
+        <p>Can you give me 5 integral problems?</p>
+        <h3>Tailor the response:</h3>
+        <p>Can you give me 5 integral problems, with their integration method and difficulty level from 1 to 5? </p>
+        <h2>Info</h2>
+        <h3>Daily Limit</h3>
+        <p>Daily questions are limited to 10 for the free tier. See upgrade for more.</p> 
+        <h3>Feedback</h3>
+        <p>You can give feedback after each response by clicking the icons in the bottom right.</p>
+        <h3>Data storage</h3>
+        <p>All data is stored to improve the AI and customize the model for premium tier users.</p>  
+      </div>
+
+    <div class="container">
+        <h1>Interactive Math Tutor Chat</h1>
+        <div class="chat-container" id="chat-container">
+            {% for message in chat_log %}
+            {% if message['role'] == 'user' %}
+            <p class="user">{{ message['content']|nl2br|safe }}</p>
+            {% elif message['role'] == 'assistant' %}
+            <p class="tutor">{{ message['content']|nl2br|safe }}</p>
+            {% else %}
+            <p class="system">{{ message['content']|nl2br|safe }}</p>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <form action="/chat" method="POST" id="chat-form" autocomplete="off">
+            <label for="question">Enter your question:</label>
+            <input type="text" id="question" name="question" placeholder="Type your question here..." required>
+            <button type="submit">Send</button>
+            <div class="feedback-buttons-wrapper">
+              <button type="button" class="feedback-button" id="thumbs-up"><i class="fas fa-thumbs-up"></i></button>
+              <button type="button" class="feedback-button" id="thumbs-down"><i class="fas fa-thumbs-down"></i></button>
+          </div>
+          
+
+          <div>
+          <button id="logout" class="logout-button">Logout</button>
+          </div>
+        </form>
+
+    </div>
+
+    <!-- Gather the feedback from the buttons -->
+    <script>
+      document.getElementById("thumbs-up").addEventListener("click", function() {
+          sendFeedback("up");
+      });
+      
+      document.getElementById("thumbs-down").addEventListener("click", function() {
+          sendFeedback("down");
+      });
+      
+      function sendFeedback(feedbackType) {
+        const userMessages = document.getElementsByClassName("user");
+        const lastQuestion = userMessages[userMessages.length - 1].innerText;
+        const tutorMessages = document.getElementsByClassName("tutor");
+        const lastResponse = tutorMessages[tutorMessages.length - 1].innerText;
+
+        
+        if (lastQuestion.length === 0) {
+            alert("Please enter a question before submitting feedback.");
+            return;
+        }
+
+        fetch("/feedback", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ feedback: feedbackType, question: lastQuestion, response: lastResponse })
+        }).then(response => {
+            if (response.ok) {
+                alert("Feedback submitted successfully!");
+            } else {
+                alert("An error occurred while submitting feedback. Please try again.");
+            }
+        }).catch(error => {
+            alert("An error occurred while submitting feedback. Please try again.");
+        });
+    }
+
+      </script>
+    <!-- Logout button -->
+    
+      <script>
+        document.getElementById('logout').addEventListener('click', function() {
+          const confirmed = confirm('All chat history will be lost. Are you sure you want to logout?');
+          
+          if (confirmed) {
+            window.location.href = "/logout";
+          }
+        });
+      </script>
+
+      <!-- Popping up subscribe messages when exceeding 5 messages -->
+      <!-- Add this right before the closing </body> tag in chat.html -->
+      <div id="limitModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Daily Question Limit Reached</h2>
+          <p>You have reached your daily limit of 5 questions. Please subscribe for unlimited access or come back tomorrow :)</p>
+        </div>
+      </div>
+
+      <style>
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+
+      .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      </style>
+
+      <script>
+        // Get the modal
+        var modal = document.getElementById("limitModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+      </script>
+
+      {% if limit_reached %}
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          modal.style.display = "block";
+        });
+      </script>
+      {% endif %}
+      
+</body>
+</html>
